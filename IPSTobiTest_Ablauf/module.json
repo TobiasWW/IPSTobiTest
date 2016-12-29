@@ -1,0 +1,19 @@
+{ 
+    "id": "{3C5A0DD3-7B61-4C73-BC49-E75EA2BD7651}",
+    "name": "IPSTobiTest_Ablauf",
+    "type": 3,
+    "vendor": "Tobias WW - Testing",
+    "aliases":
+    [
+    ],
+    "parentRequirements":
+    [
+    ],
+    "childRequirements": 
+    [
+    ],
+    "implemented": 
+    [
+    ],
+    "prefix": "TobiTest"
+}
