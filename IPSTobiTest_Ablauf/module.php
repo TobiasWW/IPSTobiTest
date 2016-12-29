@@ -3,9 +3,11 @@
 // Klassendefinition
 class IPSTobiTest_Ablauf extends IPSModule
 {
-
     //Zähler
-    private $i = 0;
+    private $i      = 0;
+    protected $rand = "X";
+
+//var_dump(bin2hex($bytes));
 
     private function getInfoText()
     {
@@ -83,12 +85,14 @@ class IPSTobiTest_Ablauf extends IPSModule
                 }
         }
         $this->i++;
-        
-        return '$i: "' . $this->i . '" - Instanz #' . $this->InstanceID . ':  "' . $instInfo . '" - Kernel: "' . $kStat . '"';
+
+        return '$rand: "' . $this->rand . '" - $i: "' . $this->i . '" - Instanz #' . $this->InstanceID . ':  "' . $instInfo . '" - Kernel: "' . $kStat . '"';
     }
 
     public function __construct($InstanceID)
     {
+        $this->rand = mt_rand(1000, 9999);
+
         IPS_LogMessage(__FUNCTION__ . " (vor Parent)", $this->getInfoText());
 
         // Diese Zeile nicht löschen
@@ -104,8 +108,13 @@ class IPSTobiTest_Ablauf extends IPSModule
 
         // Diese Zeile nicht löschen.
         parent::Create();
-
+        
         IPS_LogMessage(__FUNCTION__ . " (nach Parent)", $this->getInfoText());
+        
+        $this->RegisterPropertyInteger("VariableID", 0);
+        $this->RegisterPropertyBoolean("DummyCheckBox", false);
+        
+        IPS_LogMessage(__FUNCTION__ . " (Ende)", $this->getInfoText()); 
     }
 
     // Überschreibt die intere IPS_ApplyChanges() Funktion
@@ -117,8 +126,16 @@ class IPSTobiTest_Ablauf extends IPSModule
         parent::ApplyChanges();
 
         IPS_LogMessage(__FUNCTION__ . " (nach Parent)", $this->getInfoText());
+        
+        $id = $this->ReadPropertyInteger("VariableID");
+        if ($id !== false and $id > 0)
+        {
+            $this->RegisterMessage($id, 10603); //Var Change
+        }
+        
+        IPS_LogMessage(__FUNCTION__ . " (Ende)", $this->getInfoText());
     }
-
+    
     public function Destroy()
     {
         IPS_LogMessage(__FUNCTION__ . " (vor Parent)", $this->getInfoText());
@@ -135,7 +152,13 @@ class IPSTobiTest_Ablauf extends IPSModule
 
     public function GetConfigurationForm()
     {
-        IPS_LogMessage(__FUNCTION__ . "", $this->getInfoText());
+        IPS_LogMessage(__FUNCTION__ . " (Anfang)", $this->getInfoText());
+
+        $elements = '{ "type": "SelectVariable", "name": "VariableID", "caption": "MessageSink Variable" },';
+        $elements .= '{ "type": "CheckBox", "name": "DummyCheckBox", "caption": "Dummy CheckBox" }';
+
+        IPS_LogMessage(__FUNCTION__ . " (Ende)", $this->getInfoText());
+        return '{"elements": [ ' . $elements . ' ]}';
     }
 
     public function MessageSink($TimeStamp, $SenderID, $Message, $Data)
@@ -154,5 +177,4 @@ class IPSTobiTest_Ablauf extends IPSModule
     }
 
 }
-
 ?>
