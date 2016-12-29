@@ -21,27 +21,27 @@ class IPSTobiTest_Ablauf extends IPSModule
             {
                 case 101 :
                     {
-                        $kStat = "IS_CREATING";
+                        $instInfo = "IS_CREATING";
                         break;
                     }
                 case 102 :
                     {
-                        $kStat = "IS_ACTIVE";
+                        $instInfo = "IS_ACTIVE";
                         break;
                     }
                 case 103 :
                     {
-                        $kStat = "IS_DELETING";
+                        $instInfo = "IS_DELETING";
                         break;
                     }
                 case 104 :
                     {
-                        $kStat = "IS_INACTIVE";
+                        $instInfo = "IS_INACTIVE";
                         break;
                     }
                 default :
                     {
-                        $kStat = 'UNKNOWN (' . $inst["InstanceStatus"] . ')';
+                        $instInfo = 'UNKNOWN (' . $inst["InstanceStatus"] . ')';
                         break;
                     }
             }
