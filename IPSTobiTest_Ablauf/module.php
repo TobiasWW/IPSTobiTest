@@ -82,7 +82,9 @@ class IPSTobiTest_Ablauf extends IPSModule
                     break;
                 }
         }
-        return '$i: "' . $this->$i . '" - Instanz #' . $this->InstanceID . ':  "' . $instInfo . '" - Kernel: "' . $kStat . '"';
+        $this->i++;
+        
+        return '$i: "' . $this->i . '" - Instanz #' . $this->InstanceID . ':  "' . $instInfo . '" - Kernel: "' . $kStat . '"';
     }
 
     public function __construct($InstanceID)
