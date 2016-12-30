@@ -7,6 +7,7 @@ class IPSTobiTest_Ablauf extends IPSModule
     private $i      = 0;
     protected $rand = "X";
 
+	//SVN-Client Commit Test
 //var_dump(bin2hex($bytes));
 
     private function getInfoText()
